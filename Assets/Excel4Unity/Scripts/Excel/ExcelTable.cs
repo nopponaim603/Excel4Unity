@@ -21,13 +21,31 @@ public class ExcelTable
     public ExcelTable(ExcelWorksheet sheet)
     {
         TableName = sheet.Name;
-        NumberOfRows = sheet.Dimension.Rows;
-        NumberOfColumns = sheet.Dimension.Columns;
+        // Improve robustness for empty sheet and empty cell
+        // by guangpingmo@qq.com
+        if (sheet.Dimension != null)
+        {
+            NumberOfRows = sheet.Dimension.Rows;
+            NumberOfColumns = sheet.Dimension.Columns;
+        }
+        else
+        {
+            //empty Sheet
+            NumberOfRows = 0;
+            NumberOfColumns = 0;
+        }
+
         for (int row = 1; row <= NumberOfRows; row++)
         {
             for (int column = 1; column <= NumberOfColumns; column++)
             {
-                string value = sheet.Cells[row, column].Value.ToString();
+                // Improve robustness for empty sheet and empty cell
+                // by guangpingmo@qq.com
+                string value = ""; //default value for empty cell
+                if (sheet.Cells[row, column].Value != null)
+                {
+                    value = sheet.Cells[row, column].Value.ToString();
+                }
                 SetValue(row, column, value);
             }
         }
