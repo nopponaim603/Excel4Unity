@@ -9,13 +9,13 @@ public class ExcelEditor : EditorWindow {
     private ExcelTable mTable;
     private int selectIndex;
 
-    [MenuItem("MyEditor/ShowXlsEditor")]
+    [MenuItem("Excel4Unity/ShowXlsEditor")]
     static void ShowWindow()
     {
         ExcelEditor window = EditorWindow.GetWindowWithRect<ExcelEditor>(new Rect(0, 0, 800, 400));
         window.Show();
 
-        string path = Application.dataPath + "/Test/Test3.xlsx";
+        string path = System.IO.Path.Combine(Application.streamingAssetsPath, "Test3.xlsx");
         Excel xls =  ExcelHelper.LoadExcel(path);
         xls.ShowLog();
 
@@ -57,7 +57,7 @@ public class ExcelEditor : EditorWindow {
 
         EditorDrawHelper.DrawButton("Save", delegate()
         {
-            string path = Application.dataPath + "/Test/Test3.xlsx";
+            string path = System.IO.Path.Combine(Application.streamingAssetsPath, "Test3.xlsx");
             ExcelHelper.SaveExcel(mExcel, path);
             EditorUtility.DisplayDialog("Save Success", path, "ok");
         });

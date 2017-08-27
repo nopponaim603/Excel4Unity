@@ -7,13 +7,15 @@ using System.Collections.Generic;
 public class MyEditor : Editor
 {
 
-    [MenuItem("MyEditor/test")] 
+    [MenuItem("Excel4Unity/Testing/test")] 
     static void test()
     {
         Excel xls = new Excel();
         ExcelTable table = new ExcelTable();
         table.TableName = "test";
-        string outputPath = Application.dataPath + "/Test/Test2.xlsx";
+
+        string outputPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Test2.xlsx");
+        
         xls.Tables.Add(table);
         xls.Tables[0].SetValue(1, 1, "1");
         xls.Tables[0].SetValue(1, 2, "2");
@@ -23,21 +25,23 @@ public class MyEditor : Editor
         ExcelHelper.SaveExcel(xls, outputPath);
     }
 
-    [MenuItem("MyEditor/LoadXls")] 
+    [MenuItem("Excel4Unity/Testing/LoadXls")] 
     static void LoadXls()
     {
-        string path = Application.dataPath + "/Test/Test3.xlsx";
+        string path = System.IO.Path.Combine(Application.streamingAssetsPath, "Test2.xlsx");
         Excel xls =  ExcelHelper.LoadExcel(path);
         xls.ShowLog();
     }
 
-    [MenuItem("MyEditor/WriteXls")] 
+    [MenuItem("Excel4Unity/Testing/WriteXls")] 
     static void WriteXls()
     {
         Excel xls = new Excel();
         ExcelTable table = new ExcelTable();
         table.TableName = "test";
-        string outputPath = Application.dataPath + "/Test/Test2.xlsx";
+
+        string outputPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Test2.xlsx");
+
         xls.Tables.Add(table);
         xls.Tables[0].SetValue(1, 1, Random.Range(1000,100000).ToString());
         xls.ShowLog();
