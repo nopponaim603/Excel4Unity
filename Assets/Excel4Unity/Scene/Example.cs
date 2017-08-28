@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Example : MonoBehaviour {
-
+    public Text outputText;
 	// Use this for initialization
 	void Start () {
         string excelInPutFileName = "Test.xlsx";
@@ -17,6 +18,7 @@ public class Example : MonoBehaviour {
 
         xls.Tables[0].SetValue(1, 1, "???");
         ExcelHelper.SaveExcel(xls, excelOutPutFilePath);
+        outputText.text = "Save Success.";
     }
 
 }
